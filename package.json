@@ -1,0 +1,25 @@
+{
+  "name": "formbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "botbuilder": "^3.13.1",
+    "botbuilder-azure": "^3.0.4",
+    "form-data": "^2.3.1",
+    "paymentwall": "^1.2.4",
+    "restify": "^5.0.0",
+    "xregexp": "^4.0.0",
+    "alan": "github:vzakharov/alanbot"
+  },
+  "devDependencies": {
+    "request": "^2.81.0",
+    "zip-folder": "^1.0.0"
+  }
+}
