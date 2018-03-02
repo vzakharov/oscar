@@ -1,4 +1,5 @@
 node_modules/
+.vscode/
 *.js.map
 package-lock.json
 credentials.json

@@ -1,0 +1,17 @@
+[	"#_start",
+	">>debug",
+	"check firstName", [
+		null, [
+			"Hey, I’m Oscar, your purry assistant to Scerval.",
+			"And you must be ...?",
+			"read firstName",
+			"Nice to meet you, @firstName!",
+			"So, @firstName, what would you like to do today?"
+		]
+	],
+	">>debug",
+	"Hey, @firstName, what would you like to do today?",
+	"#_menu",
+	
+
+]
