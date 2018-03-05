@@ -1,0 +1,32 @@
+[	
+	"set api.endpoint https://smartcat.ai/api/integration/v1/",
+	"Hey, I’m *O*scar, the *S*mart*c*at-*a*ugmenting *r*obot",
+	"And you must be ...?",
+	"read firstName",
+	"Nice to meet you, @firstName!",
+	"First of all, let’s connect to your Smartcat account. Do you know your API credentials?", [
+		"Yes", "next",
+		"No", ["..."]
+	],
+	"@s.great! Enter your API username:",
+	"read api.username",
+	"@s.gotIt. Now the API password:",
+	"IMPORTANT! Make sure to delete the message after you send it.",
+	"read api.password",
+	"One second, Let’s see if it works...",
+	"api.get account",
+	"@s.ready, account @account.name successfully loaded!",
+	"Now let’s fetch your projects...",
+	"api.get project/list to projects", 
+	"Okay, here we go:", [
+		"[Create new project]", ">> #_newProject",
+		"[Do something else]", ">> #_mainMenu",
+		"choose project", "among projects by name"
+	],
+	"set stages to @workflowStages",
+	"@s.sure. The project has @stages.length workflow stages, with the following completion percentages:",
+	"for stage in stages",
+	"print @stage.stageType: @stage.progress%",
+	"Do you want to look into specific documents",
+	"@s.ready. Here are the docs within that project:"
+]

@@ -1,12 +1,12 @@
 {
-  "name": "formbot",
-  "version": "1.0.0",
-  "description": "",
+  "name": "oscarbot",
+  "version": "0.1.0",
+  "description": "1. make code change in the online editor",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Vova Zakharov, https://vovas.place",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.17.1",
@@ -21,5 +21,19 @@
   "devDependencies": {
     "request": "^2.81.0",
     "zip-folder": "^1.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vzakharov/oscar.git"
+  },
+  "keywords": [
+    "smartcat",
+    "translation",
+    "chatbot",
+    "agency"
+  ],
+  "bugs": {
+    "url": "https://github.com/vzakharov/oscar/issues"
+  },
+  "homepage": "https://github.com/vzakharov/oscar#readme"
 }

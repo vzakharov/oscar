@@ -71,4 +71,4 @@ const FROM_ENG_MORE_OPTIONS = {
 }
 
 
-Alan.init(require('./t9nio.json'))
+Alan.init(require('./flow'))
