@@ -1,7 +1,9 @@
 module.exports = async (a) => {
     with (a) {
         api.url = 'https://smartcat.ai/api/integration/v1/'
-    
+        
+        await getCreds()
+
         put("Hey, I’m Oscar, the Smartcat-augmenting robot.")
     
         vars.firstName = await read("And you must be ...?")
@@ -45,7 +47,7 @@ module.exports = async (a) => {
             await choose([
                 "[Create new project]", newProject,
                 "[Do something else]", mainMenu,
-                projects, 'name', showProject
+                projects, '$name', showProject
             ])
         }
     
@@ -59,19 +61,21 @@ module.exports = async (a) => {
 
         async function showProject(p) {
     
-            put("Fetching project *$name*", p)
+            put("Fetching project *$name*...", p)
     
             put("Done! Here’s some project info:")
-            
-            [
+
+            let projectInfo = [
                 ["Name", p.name],
                 ["Source language", p.sourceLanguage],
                 ["Target language(s)", p.targetLanguages],
                 ["Deadline", p.deadline],
                 ["Created at", p.creationDate],
                 ["Status", p.status]
-            ].forEach(pair => 
-                put(`${format(pair[0])}: ${pair[1]}`)
+            ]
+            
+            projectInfo.forEach(pair => 
+                put(`${format(pair[0])}: **${pair[1]}**`)
             )
 
             put("Completion percentage by stages:")
@@ -82,22 +86,33 @@ module.exports = async (a) => {
                 proofreading: "Proofreading",
                 postediting: "Post-editing"
             }
+
+            p.joinedStages = stages.map(stage => stageTitles[stage.stageType].toLowerCase()).join('/')
     
             stages.forEach(stage => {
-                let {stageType, stageProgress} = stage
-                put(`${stageTitles[stageType]}: *${stageProgress}%*`)
+                let {stageType, progress} = stage
+                put(`${stageTitles[stageType]}: *${progress}%*`)
             })
     
-            put("The project contains the following documents:")    /// Lines after this one indicate specific properties displayed in the document list, e.g. “Document1 (to JA, unassigned, 500/1000 words completed)”
+            put("Completion by documents ($joinedStages):", p)
     
             let docs = p.documents
     
+            let statusTitles = {
+                completed: "Completed",
+                inProgress: "In progress"
+            }
+
             docs.forEach((d) => {
-                d.wordsCompleted = d.workflowStages.map(stage => stage.wordsTranslated).join("/")
-                put("*$name* — to $targetLanguage, $status, $wordsCompleted of $totalWords completed", d)
+                let joinStages =  (key) => d.workflowStages.map(stage => Math.round(stage[key]).toString()).join('/')
+                d.wordsCompleted = joinStages('wordsTranslated')
+                d.percentageCompleted = joinStages('progress')
+                d.statusTitle = statusTitles[d.status]
+                let str = format("**$name → $targetLanguage**: $statusTitle" + (d.status === 'completed' ? "": ", $wordsCompleted ($percentageCompleted%)"), d)
+                put(str)
             })
     
-            projectMenu()
+            await projectMenu()
     
             async function projectMenu() {
                 put("What do you want to do now?")
@@ -113,7 +128,7 @@ module.exports = async (a) => {
                             "[Back to all projects]", getProjects
                         ])
                     },
-                    docs, 'name', getDoc
+                    docs, '$name → $targetLanguage', getDoc
                 ])
             }
     
